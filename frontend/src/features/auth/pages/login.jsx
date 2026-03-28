@@ -22,13 +22,14 @@ const login = () => {
                 alert("Please enter email and password")
             }
             const res = await handleLogin({ email, password })
-            console.log(res.message)
             alert(res.message)
+            console.log(res.message)
             navigate("/home")
         }
         catch(err){
             alert(err.message)
-        }
+            console.log(err.message)
+        } 
     }
 
 

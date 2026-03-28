@@ -5,17 +5,16 @@ import { Navigate, useNavigate } from 'react-router'
 
 const Protected = ({ children }) => {
 
-    const {
-        user, loading
-    } = useAuth()
+    const {user, loading, setLoading} = useAuth()
     
     const navigate = useNavigate()
 
     if (loading) {
-        return <h1>loading</h1>
+        return <h1>loading..</h1>
     }
     
     if (!user) {
+        navigate("/login")
         return <Navigate to="/login" />
     }
 

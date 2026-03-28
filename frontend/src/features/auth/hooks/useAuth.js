@@ -12,16 +12,16 @@ export const useAuth = () => {
         setLoading(true)
         const data = await register({ username, email, password })
         setUser(data.user)
-        
         setLoading(false)
+        return data
     }
 
     async function handleLogin({ username, email, password }) {
         setLoading(true)
         const data = await login({ username, email, password })
         setUser(data.user)
-        return data
         setLoading(false)
+        return data
     }
 
     async function handleGetMe() {
@@ -29,6 +29,7 @@ export const useAuth = () => {
         const data = await getMe()
         setUser(data.user)
         setLoading(false)
+        return data
     }
 
     async function handleLogout() {

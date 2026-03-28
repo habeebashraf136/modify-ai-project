@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: process.env.backend_url || "http://localhost:3000",
+    baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:3000",
     withCredentials: true
 })
 
@@ -12,7 +12,7 @@ export async function register({ email, password, username }) {
     })
     return response.data
     }catch(err){
-        return err.response.data
+        return err.response?.data || { message: "Network error or server is down" }
     }
 }
 
@@ -23,7 +23,7 @@ export async function login({ email, username, password }) {
     })
     return response.data
     }catch(err){
-        return err.response.data
+        return err.response?.data || { message: "Network error or server is down" }
     }
 }
 
@@ -32,7 +32,7 @@ export async function getMe() {
         const response = await api.get("/api/auth/get-me")
         return response.data
     }catch(err){
-        return err.response.data
+        return err.response?.data || { message: "Network error or server is down" }
     }
 }
 
@@ -41,6 +41,6 @@ export async function logout() {
         const response = await api.get("/api/auth/logout")
         return response.data
     }catch(err){
-        return err.response.data
+        return err.response?.data || { message: "Network error or server is down" }
     }
 }

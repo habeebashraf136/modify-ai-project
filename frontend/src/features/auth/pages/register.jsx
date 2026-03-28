@@ -22,12 +22,13 @@ const Register = () => {
             const res = await handleRegister({ username, password, email })
             console.log(res.message)
             alert(res.message)
+            navigate('/home')
         }
         catch(err){
             // console.log(err)
             alert(err.message)
         }
-        navigate('/home')
+        
 
     }
 

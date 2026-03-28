@@ -1,13 +1,17 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: process.env.backend_url || "http://localhost:3000",
+    baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:3000",
     withCredentials: true
 }) 
 
 export const getSong = async ({mood}) => {
-    const response = await api.get('/api/songs?mood=' + mood)
-    return response.data
+    try{
+        const response = await api.get('/api/songs?mood=' + mood)
+        return response.data
+    }catch(err){
+        return err.response?.data || { message: "Network error or server is down" }
+    }
 }
 
 
