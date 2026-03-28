@@ -17,19 +17,17 @@ const login = () => {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        try{
-            if(!email || !password){
-                alert("Please enter email and password")
-            }
-            const res = await handleLogin({ email, password })
-            alert(res.message)
-            console.log(res.message)
-            navigate("/home")
+       try {
+        if(!email || !password){
+            alert("Please enter email and password")
+            return  // ← yeh bhi add kar
         }
-        catch(err){
-            alert(err.message)
-            console.log(err.message)
-        } 
+        const res = await handleLogin({ email, password })
+        alert(res.message)
+        navigate("/home")
+    } catch(err) {
+        alert(err.message || "Login failed")
+    }  
     }
 
 

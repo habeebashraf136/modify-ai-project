@@ -131,7 +131,11 @@ const logoutUser = async (req,res) => {
 
     const token = req.cookies.token;
 
-    res.clearCookie("token");
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    });
 
     const expiresIn = 60 * 60;
     await redis.setex(token, expiresIn, 'blacklisted');

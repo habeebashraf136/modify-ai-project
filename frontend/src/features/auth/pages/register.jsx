@@ -18,16 +18,17 @@ const Register = () => {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        try{
-            const res = await handleRegister({ username, password, email })
-            console.log(res.message)
-            alert(res.message)
-            navigate('/home')
+        try {
+        if(!email || !password){
+            alert("Please enter email and password")
+            return  // ← yeh bhi add kar
         }
-        catch(err){
-            // console.log(err)
-            alert(err.message)
-        }
+        const res = await handleRegister({ email, password })
+        alert(res.message)
+        navigate("/home")
+    } catch(err) {
+        alert(err.message || "Login failed")
+    } 
         
 
     }
