@@ -5,6 +5,19 @@ import {
 
 
 export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
+
+    // STEP 1: Pehle camera start karo
+    streamRef.current = await navigator.mediaDevices.getUserMedia({ 
+        video: {
+            facingMode: "user",
+            width: { ideal: 640 },
+            height: { ideal: 480 }
+        }
+    });
+    videoRef.current.srcObject = streamRef.current;
+    await videoRef.current.play();
+
+    // STEP 2: Phir MediaPipe load karo
     const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
     );
@@ -21,16 +34,6 @@ export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
             numFaces: 1
         }
     );
-
-    streamRef.current = await navigator.mediaDevices.getUserMedia({ 
-    video: {
-        facingMode: "user",     // ← front camera
-        width: { ideal: 640 },
-        height: { ideal: 480 }
-    }
-    });
-    videoRef.current.srcObject = streamRef.current;
-    await videoRef.current.play();
 };
 
 export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
@@ -42,7 +45,7 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
     );
 
     if (results.faceBlendshapes?.length > 0) {
-        const blendshapes = results.faceBlendshapes[ 0 ].categories;
+        const blendshapes = results.faceBlendshapes[0].categories;
 
         const getScore = (name) =>
             blendshapes.find((b) => b.categoryName === name)?.score || 0;
@@ -53,8 +56,6 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
         const browUp = getScore("browInnerUp");
         const frownLeft = getScore("mouthFrownLeft");
         const frownRight = getScore("mouthFrownRight");
-
-        console.log(getScore("mouthFrownLeft"))
 
         let currentExpression = "Neutral";
 
@@ -68,6 +69,6 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
 
         setExpression(currentExpression);
 
-        return currentExpression
+        return currentExpression;
     }
 };
