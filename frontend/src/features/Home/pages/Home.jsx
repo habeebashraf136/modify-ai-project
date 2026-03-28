@@ -2,8 +2,6 @@ import FaceExpression from '../../Expression/components/FaceExpression'
 import Player from '../components/Player'
 import LogoutButton from '../components/LogoutButton'
 import { useSong } from '../hooks/useSong'
-import { useAuth } from '../../auth/hooks/useAuth'
-import { Navigate } from 'react-router' // Keep this!
 import './Home.scss'
 
 const Home = () => {
