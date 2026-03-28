@@ -17,6 +17,7 @@ const login = () => {
 
     async function handleSubmit(e) {
         e.preventDefault()
+        console.log("SUBMIT HUA!") 
        try {
         if(!email || !password){
             alert("Please enter email and password")
