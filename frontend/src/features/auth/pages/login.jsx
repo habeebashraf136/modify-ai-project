@@ -23,6 +23,7 @@ const login = () => {
             return  // ← yeh bhi add kar
         }
         const res = await handleLogin({ email, password })
+        console.log(res.message)
         alert(res.message)
         navigate("/home")
     } catch(err) {
