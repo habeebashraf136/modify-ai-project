@@ -2,7 +2,7 @@ import FaceExpression from '../../Expression/components/FaceExpression.jsx'
 import Player from '../components/player.jsx'
 import LogoutButton from '../components/logoutButton.jsx'
 import { useSong } from '../hooks/useSong.js'
-import './Home.scss'
+import './main.scss'
 
 const Home = () => {
   const { handleGetSong } = useSong();
