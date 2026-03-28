@@ -12,7 +12,7 @@ const formatTime = (seconds) => {
     return `${m}:${s}`
 }
 
-const Player = () => {
+const player = () => {
     const { song, loading } = useSong()
 
     const audioRef = useRef(null)
@@ -245,4 +245,4 @@ const Player = () => {
     )
 }
 
-export default Player
+export default player
