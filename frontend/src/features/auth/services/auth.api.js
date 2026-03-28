@@ -11,6 +11,7 @@ export async function register({ email, password, username }) {
         email, password, username
     })
     return response.data
+
     }catch(err){
         throw err.response?.data || { message: "Network error or server is down" }
     }
@@ -21,8 +22,10 @@ export async function login({ email, username, password }) {
         const response = await api.post("/api/auth/login", {
             email, username, password
         })
+        console.log("API RESPONSE:", response.data)
         return response.data
     } catch(err) {
+        console.log("API ERROR:", err.response)
         throw err.response?.data || { message: "Network error or server is down" }
     }
 }
