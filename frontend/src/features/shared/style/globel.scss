@@ -1,0 +1,52 @@
+@use './button.scss';
+
+:root {
+  --bg-color: #f9f7f2;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666;
+  --card-bg: #ffffff;
+  --border-color: #e5e5e5;
+  --input-bg: #fdfdfd;
+  --accent-color: #d97757;
+  --btn-bg: #1a1a1a;
+  --btn-text: #ffffff;
+  --player-bg: rgba(255, 255, 255, 0.95);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #0d0d0d;
+    --text-primary: #f2f2f2;
+    --text-secondary: #a0a0a0;
+    --card-bg: #1a1a1a;
+    --border-color: #333333;
+    --input-bg: #242424;
+    --accent-color: #e68a6e;
+    --btn-bg: #f2f2f2;
+    --btn-text: #0d0d0d;
+    --player-bg: rgba(20, 20, 20, 0.95);
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}

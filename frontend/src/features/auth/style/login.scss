@@ -1,0 +1,114 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 4rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 2rem;
+        min-width: 480px;
+        box-shadow: var(--shadow);
+        z-index: 1;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+
+            a {
+                color: var(--accent-color);
+                font-weight: 500;
+                text-decoration: none;
+                transition: opacity 0.3s ease;
+
+                &:hover {
+                    opacity: 0.8;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+
+            label {
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: var(--text-primary);
+            }
+
+            input {
+                padding: 1rem 1.25rem;
+                border-radius: 1rem;
+                background: var(--input-bg);
+                border: 1.5px solid var(--border-color);
+                color: var(--text-primary);
+                font-size: 1rem;
+                transition: all 0.2s ease;
+
+                &:focus {
+                    border-color: var(--accent-color);
+                    background: var(--card-bg);
+                    outline: none;
+                    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.05);
+                }
+
+                &::placeholder {
+                    color: var(--text-secondary);
+                    opacity: 0.5;
+                }
+            }
+        }
+
+        .button {
+            margin-top: 1.5rem;
+            padding: 1.15rem;
+            border-radius: 1.25rem;
+            border: none;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                opacity: 0.9;
+                transform: translateY(-1px);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+}
