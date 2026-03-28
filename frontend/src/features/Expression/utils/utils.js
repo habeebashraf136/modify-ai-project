@@ -22,7 +22,13 @@ export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
         }
     );
 
-    streamRef.current = await navigator.mediaDevices.getUserMedia({ video: true });
+    streamRef.current = await navigator.mediaDevices.getUserMedia({ 
+    video: {
+        facingMode: "user",     // ← front camera
+        width: { ideal: 640 },
+        height: { ideal: 480 }
+    }
+    });
     videoRef.current.srcObject = streamRef.current;
     await videoRef.current.play();
 };

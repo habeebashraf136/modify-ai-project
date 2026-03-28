@@ -38,6 +38,8 @@ export default function FaceExpression({ onClick = () => { } }) {
                 <video
                     ref={videoRef}
                     playsInline
+                    muted        
+                    autoPlay       
                 />
             </div>
             <h2>{expression}</h2>
