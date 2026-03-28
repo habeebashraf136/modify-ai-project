@@ -10,7 +10,7 @@ export const getSong = async ({mood}) => {
         const response = await api.get('/api/songs?mood=' + mood)
         return response.data
     }catch(err){
-        return err.response?.data || { message: "Network error or server is down" }
+        throw err.response?.data || { message: "Network error or server is down" }
     }
 }
 
