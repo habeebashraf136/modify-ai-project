@@ -14,7 +14,6 @@ const Protected = ({ children }) => {
     }
     
     if (!user) {
-        navigate("/login")
         return <Navigate to="/login" />
     }
 
