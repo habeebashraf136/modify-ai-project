@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
     })
 
     if(isAlreadyRegistered){
-        res.status(400)
+        return res.status(400)
         .json({
             message:"User with the same email or username already exists"
         })
@@ -67,7 +67,7 @@ const loginUser = async (req, res) => {
     })
 
     if(!user){
-        res.status(400)
+        return res.status(400)
         .json({
             message:"Invalid credentials"
         })
@@ -76,7 +76,7 @@ const loginUser = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password,user.password);
 
     if(!isPasswordValid){
-        res.status(400)
+        return res.status(400)
         .json({
             message:"Invalid credentials"
         })
