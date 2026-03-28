@@ -40,9 +40,9 @@ export const useAuth = () => {
         setLoading(false)
     }
 
-    useEffect(() => {
-        handleGetMe()
-    }, [])
+    // useEffect(() => {
+    //     handleGetMe()
+    // }, [])
 
     return ({
         user, loading, handleRegister, handleLogin, handleLogout, handleGetMe
