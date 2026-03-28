@@ -8,7 +8,7 @@ const LogoutButton = () => {
   const onLogout = async () => {
     try{
       const res = await handleLogout();
-      alert(res.message)
+      alert("logout sucessfully")
       navigate('/login')
     }catch(err){
       alert(err.message || "Login failed")

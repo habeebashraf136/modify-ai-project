@@ -26,7 +26,7 @@ const login = () => {
         alert(res.message)
         navigate("/home")
     } catch(err) {
-        alert(err.message || "Login failed")
+        // alert(err.message || "Login failed")
     }  
     }
 
