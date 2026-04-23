@@ -6,6 +6,7 @@
     background-color: var(--bg-color);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     position: relative;
+    padding: 1rem; // Prevents touching screen edges on mobile
     overflow: hidden;
     transition: background-color 0.3s ease;
 
@@ -17,7 +18,8 @@
         background: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 2rem;
-        min-width: 480px;
+        width: 100%; // Responsive width
+        max-width: 480px; // Replaced min-width to allow shrinking
         box-shadow: var(--shadow);
         z-index: 1;
         transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -108,6 +110,18 @@
 
             &:active {
                 transform: translateY(0);
+            }
+        }
+    }
+
+    // Media Query for Mobile Devices
+    @media (max-width: 480px) {
+        .form-container {
+            padding: 2rem 1.5rem; // Reduced padding for small screens
+            gap: 1.5rem;
+
+            h1 {
+                font-size: 1.8rem; // Smaller heading for mobile
             }
         }
     }

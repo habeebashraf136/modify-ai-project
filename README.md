@@ -1,92 +1,123 @@
 # Music Mood AI 🎵🤖
 
-Music Mood AI is a sophisticated web application that uses Artificial Intelligence to detect a user's emotional state through facial expressions and automatically plays music that matches their mood.
+Music Mood AI is a full-stack web application that detects user emotion via facial-expression analysis and plays music tailored to the detected mood.
 
-## ✨ Features
+## Contents
+- Overview
+- Features
+- Tech stack
+- Project layout
+- Getting started (backend & frontend)
+- Environment variables
+- API surface
+- Contributing
 
-- **AI Emotion Detection**: Real-time facial expression analysis using MediaPipe.
-- **Dynamic Music Player**: A custom-built, professional music player that responds to detected moods.
-- **Mood-Based Recommendations**: Automatically fetches and plays tracks corresponding to detected emotions (Happy, Sad, Surprised, etc.).
-- **Professional UI/UX**: A clean, minimal, and sophisticated design inspired by modern AI interfaces (Claude-like aesthetic).
-- **Responsive Design**: Fully functional across desktop and mobile devices.
-- **Dark Mode Support**: System-aware dark mode for comfortable viewing in any environment.
-- **Secure Authentication**: User registration and login system with JWT-based security.
+## Features
 
-## 🛠️ Tech Stack
+- Real-time facial-expression detection (MediaPipe integration)
+- Mood-driven music playback and recommendations
+- User authentication with JWT and secure cookies
+- Poster/media uploads using ImageKit
+- Redis caching for token blacklisting and performance
 
-### Frontend
-- **React**: Modern component-based UI development.
-- **Vite**: Ultra-fast build tool and development server.
-- **Sass (SCSS)**: Professional-grade styling with advanced nesting and variables.
-- **MediaPipe**: Google's high-performance machine learning framework for facial landmark detection.
-- **Axios**: Promise-based HTTP client for API communication.
-- **React Router**: Client-side navigation and routing.
+## Tech Stack
 
-### Backend
-- **Node.js & Express**: Scalable server-side environment and web framework.
-- **MongoDB & Mongoose**: Flexible NoSQL database and object modeling.
-- **Redis**: High-performance caching for optimized song retrieval.
-- **JWT (JSON Web Tokens)**: Secure user session management.
-- **Bcrypt**: Advanced password hashing for user security.
-- **ImageKit**: Cloud-based storage for song posters and media.
-- **Multer**: Middleware for handling multi-part form data/file uploads.
+- Frontend: React + Vite + Sass
+- Backend: Node.js + Express
+- Database: MongoDB (Mongoose)
+- Cache: Redis (ioredis)
+- Auth: JWT, bcrypt
+- Storage: ImageKit
 
-## 📁 Project Structure
+## Project layout (high level)
 
-```text
-modify-AI project/
-├── frontend/                # React application
-│   ├── src/
-│   │   ├── features/        # Feature-based module organization
-│   │   │   ├── Expression/  # AI Emotion detection logic
-│   │   │   ├── Home/        # Main dashboard and music player
-│   │   │   ├── auth/        # Login/Register functionality
-│   │   │   └── shared/      # Common styles and components
-│   │   ├── App.jsx          # Root component
-│   │   └── main.jsx         # Entry point
-│   └── package.json
-└── backend/                 # Node.js Express server
-    ├── src/
-    │   ├── controllers/     # API logic handlers
-    │   ├── models/          # Database schemas
-    │   ├── routes/          # API endpoint definitions
-    │   └── app.js           # Server configuration
-    └── server.js            # Entry point
+frontend/
+- React app built with Vite. Key entry: `src/main.jsx` and `src/App.jsx`.
+
+backend/
+- Express server entry: `server.js` (loads `src/app.js`).
+- API routes live under `backend/src/routes` (notably `/api/auth` and `/api/songs`).
+
+Full workspace: see top-level folders `frontend/` and `backend/`.
+
+## Getting started
+
+Prerequisites
+- Node.js (v16+ recommended, v18+ preferred)
+- MongoDB instance (local or cloud)
+- Redis (optional but required for token blacklisting)
+
+Backend (server)
+1. Open a terminal and install dependencies:
+
+```bash
+cd backend
+npm install
 ```
 
-## 🚀 Getting Started
+2. Create a `.env` file in `backend/` with (at minimum) the variables listed in the Environment section below.
 
-### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB
-- Redis (Optional, for caching)
+3. Start the server:
 
-### Installation
+Windows (cmd/powershell):
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd modify-AI-project
-   ```
+```powershell
+set PORT=4000
+set MONGO_URI=<your-mongo-uri>
+set JWT_SECRET=<your-secret>
+node server.js
+```
 
-2. **Setup Backend**
-   ```bash
-   cd backend
-   npm install
-   # Create a .env file with your credentials (PORT, MONGO_URI, JWT_SECRET, etc.)
-   npm start
-   ```
+Or simply (if environment variables are set in your shell):
 
-3. **Setup Frontend**
-   ```bash
-   cd ../frontend
-   npm install
-   npm run dev
-   ```
+```bash
+node server.js
+```
 
-## 🎨 Design Philosophy
+The server listens on `process.env.PORT` and mounts the API under `/api`.
 
-The project follows a **Minimalist & Human-Centric** design approach. It avoids typical "techy" dark modes in favor of warm neutrals and sophisticated typography, creating an experience that feels like a professional creative tool.
+Frontend (client)
+1. Install dependencies and start the Vite dev server:
 
----
-Created with ❤️ by [Your Name/Team]
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+2. By default Vite serves at `http://localhost:5173` (or another port if 5173 is in use). Ensure the backend `frontend_url` env value matches the URL shown by Vite for CORS to work.
+
+## Environment variables (backend)
+
+The backend reads configuration from environment variables. Set these in `backend/.env` or your shell.
+
+- `PORT` — port to run the Express server (e.g., `4000`).
+- `MONGO_URI` — MongoDB connection string.
+- `JWT_SECRET` — secret used to sign JWT tokens.
+- `frontend_url` — front-end origin used by CORS (e.g., `http://localhost:5173`).
+- `REDIS_HOST` — Redis host (if using Redis).
+- `REDIS_PORT` — Redis port.
+- `REDIS_PASSWORD` — Redis password (if required).
+- `IMAGEKIT_PRIVATE_KEY` — ImageKit private key used by the upload service.
+
+Optional / helpful:
+- `IMAGEKIT_PUBLIC_KEY`, `IMAGEKIT_URL_ENDPOINT` — if you use ImageKit public endpoints in the frontend.
+
+## Important API endpoints
+
+- Authentication: `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/getme`, `POST /api/auth/logout` (cookies used for session token)
+- Songs: endpoints under `/api/songs` (see `backend/src/routes/song.routes.js` for details)
+
+Notes
+- The backend sets a secure, HTTP-only cookie named `token` after login/registration. The app uses Redis to blacklist tokens on logout.
+- File uploads use `multer` and `ImageKit` for storage (see `backend/src/services/storage.service.js`).
+
+## Contributing
+
+- Follow existing code patterns in `frontend/src/features` and `backend/src`.
+- Open issues for bugs or feature requests.
+
+## License
+
+This repository does not include a license file; add one if you plan to open-source or share the project publicly.
+
