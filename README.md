@@ -112,12 +112,6 @@ Notes
 - The backend sets a secure, HTTP-only cookie named `token` after login/registration. The app uses Redis to blacklist tokens on logout.
 - File uploads use `multer` and `ImageKit` for storage (see `backend/src/services/storage.service.js`).
 
-## Contributing
 
-- Follow existing code patterns in `frontend/src/features` and `backend/src`.
-- Open issues for bugs or feature requests.
 
-## License
-
-This repository does not include a license file; add one if you plan to open-source or share the project publicly.
 
